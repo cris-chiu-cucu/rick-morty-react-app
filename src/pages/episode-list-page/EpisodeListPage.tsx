@@ -2,14 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 import Paginator from "../../components/paginator/Paginator.tsx";
-import EpisodesList from "../../components/episodes-list/EpisodesList.tsx";
+import EpisodeList from "../../components/episode-list/EpisodeList.tsx";
 import Loader from "../../components/loader/Loader.tsx";
 import ErrorPanel from "../../components/error-panel/ErrorPanel.tsx";
 import { fetchEpisodesByPage } from "../../api/episode.ts";
 
-import "./EpisodesPage.css";
+import "./EpisodeListPage.css";
 
-export default function Episodes() {
+export default function EpisodeListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, error, isPending, isFetching, isError } = useQuery({
     queryKey: ["episodes", currentPage],
@@ -25,7 +25,7 @@ export default function Episodes() {
       {isError && <ErrorPanel errorMessage={error.message} />}
       {data && (
         <>
-          <EpisodesList episodes={data.results} />
+          <EpisodeList episodes={data.results} />
           {pages && pages > 1 && (
             <Paginator
               currentPage={currentPage}
