@@ -1,0 +1,30 @@
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin: 10px 0;
+}
+
+.page-button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  margin: 0 4px;
+  width: 48px;
+  height: 48px;
+}
+
+.page-button:hover {
+  box-shadow: 0 0 5px #cde9c8;
+}
+
+.page-button--active {
+  background-color: #cde9c8;
+}
+
+.spread-separator,
+.page-button {
+  color: #1f415c;
+  font-weight: 700;
+  font-size: 18px;
+}

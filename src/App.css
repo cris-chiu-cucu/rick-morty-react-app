@@ -17,6 +17,7 @@
 
 #content {
   flex-grow: 3;
+  position: relative; /*this css declaration is necessary for Loading to display as a layer on top*/
 }
 
 #footer {
