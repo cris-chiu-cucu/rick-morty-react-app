@@ -1,3 +1,48 @@
 #episodes-page-content {
   padding: 10px;
 }
+
+.filter-container {
+  margin: 20px;
+  font-size: 1.2rem;
+  display: flex;
+}
+
+#episode-name {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #72b9a0;
+  color: #4e8074;
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+
+#episode-name:hover,
+#episode-name:focus {
+  box-shadow: 0 0 5px #72b9a0;
+}
+
+#episode-name:focus {
+  border-color: #4e8074; 
+}
+
+.reset-button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  margin: 0 5px;
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  font-size: 1.3rem;
+  color: #4e8074;
+}
+
+.reset-button:hover {
+  box-shadow: 0 0 5px #cde9c8;
+}
+
+#episode-name:focus-visible,
+.reset-button:focus-visible {
+  outline: #4e8074 solid 1px;
+}

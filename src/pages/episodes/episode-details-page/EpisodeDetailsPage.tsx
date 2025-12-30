@@ -10,7 +10,7 @@ import "./EpisodeDetailsPage.css";
 
 export default function EpisodeDetailsPage() {
   const { episodeId } = useParams();
-  const { data, error, isError, isFetching, isPending } = useQuery({
+  const { data, error, isError, isPending } = useQuery({
     queryKey: ["episode", episodeId],
     queryFn: () => fetchEpisodeDetails(episodeId!),
     enabled: !!episodeId,
@@ -31,7 +31,6 @@ export default function EpisodeDetailsPage() {
       {isPending && <Loader />}
       {isError && error && <ErrorPanel errorMessage={error.message} />}
       {data && <EpisodeDetails episode={data} />}
-      {isFetching && <div>Fetching content...</div>}
     </>
   );
 }

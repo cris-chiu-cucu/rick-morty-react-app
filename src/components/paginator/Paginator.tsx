@@ -21,14 +21,15 @@ export default function Paginator({
     onChangeCurrentPage(currentPage + 1);
   }
 
-  const maxNumericPageButtons = 3;
+  // 3 is the maximal number of pages to be displayed in paginator
+  const maxNumericPageButtons = pages < 3 ? pages : 3;
   const displayedPageNumbers: number[] = [];
 
   if (currentPage < maxNumericPageButtons) {
     for (let i = 1; i <= maxNumericPageButtons; i++) {
       displayedPageNumbers.push(i);
     }
-  } else if (pages - currentPage < 3) {
+  } else if (pages - currentPage < maxNumericPageButtons) {
     let pageNumber = pages;
     for (let i = maxNumericPageButtons - 1; i >= 0; i--) {
       displayedPageNumbers[i] = pageNumber--;

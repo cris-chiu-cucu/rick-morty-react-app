@@ -17,7 +17,7 @@ export default function EpisodeDetails({ episode }: { episode: Episode }) {
     }
   });
 
-  const { data, error, isPending, isFetching, isError } = useQuery({
+  const { data, error, isPending, isError } = useQuery({
     queryKey: ["character", characterIdList],
     queryFn: () => fetchMultipleCharacters(characterIdList),
   });
@@ -78,7 +78,6 @@ export default function EpisodeDetails({ episode }: { episode: Episode }) {
           ))}
         </ul>
       )}
-      {isFetching && <div>Fetching character details...</div>}
     </div>
   );
 }

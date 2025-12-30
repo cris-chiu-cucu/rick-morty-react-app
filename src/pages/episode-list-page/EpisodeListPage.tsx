@@ -11,10 +11,12 @@ import "./EpisodeListPage.css";
 
 export default function EpisodeListPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, error, isPending, isFetching, isError } = useQuery({
-    queryKey: ["episodes", currentPage],
-    queryFn: () => fetchEpisodes(currentPage),
+  const [episodeNameFilter, setEpisodeNameFilter] = useState("");
+  const { data, error, isPending, isError } = useQuery({
+    queryKey: ["episodes", currentPage, episodeNameFilter],
+    queryFn: () => fetchEpisodes(currentPage, `name=${episodeNameFilter}`),
   });
+
   // TODO: check why the component is called 4 times: the first 2 times the component is called because of StrictMode in react
   const pages = data?.info?.pages;
 
@@ -23,6 +25,24 @@ export default function EpisodeListPage() {
     <div id="episodes-page-content">
       {isPending && <Loader />}
       {isError && <ErrorPanel errorMessage={error.message} />}
+      <form className="filter-container">
+        <label htmlFor="episode-name">Filter by episode name:</label>
+        <input
+          id="episode-name"
+          value={episodeNameFilter}
+          onChange={(e) => {
+            setEpisodeNameFilter(e.target.value);
+          }}
+        />
+        <input
+          type="reset"
+          className="reset-button"
+          value="&#10799;"
+          onClick={() => {
+            setEpisodeNameFilter("");
+          }}
+        />
+      </form>
       {data && (
         <>
           <EpisodeList episodes={data.results} />
@@ -35,7 +55,6 @@ export default function EpisodeListPage() {
           )}
         </>
       )}
-      {isFetching && <div>Fetching content...</div>}
     </div>
   );
 }
