@@ -1,0 +1,10 @@
+.bread-crumps {
+  margin: 10px 20px;
+  color: #1f415c;
+  font-size: 20px;
+}
+
+.previous-link {
+  color: #72b9a0;
+  cursor: pointer;
+}

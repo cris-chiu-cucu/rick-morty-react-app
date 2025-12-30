@@ -5,7 +5,7 @@ import Paginator from "../../components/paginator/Paginator.tsx";
 import EpisodeList from "../../components/episode-list/EpisodeList.tsx";
 import Loader from "../../components/loader/Loader.tsx";
 import ErrorPanel from "../../components/error-panel/ErrorPanel.tsx";
-import { fetchEpisodesByPage } from "../../api/episode.ts";
+import { fetchEpisodes } from "../../api/episode.ts";
 
 import "./EpisodeListPage.css";
 
@@ -13,7 +13,7 @@ export default function EpisodeListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, error, isPending, isFetching, isError } = useQuery({
     queryKey: ["episodes", currentPage],
-    queryFn: () => fetchEpisodesByPage(currentPage),
+    queryFn: () => fetchEpisodes(currentPage),
   });
   // TODO: check why the component is called 4 times: the first 2 times the component is called because of StrictMode in react
   const pages = data?.info?.pages;

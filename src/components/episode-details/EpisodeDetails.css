@@ -1,0 +1,65 @@
+.episode-details-content {
+  margin: 10px 20px;
+}
+
+.episode-description {
+  color: #1f415c;
+}
+
+.character-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.character-list-item {
+  width: 100%;
+  padding: 10px;
+
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 33%;
+  }
+
+  @media screen and (min-width: 1700px) {
+    width: 25%;
+  }
+}
+
+.character-card {
+  background-color: gainsboro;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #72b9a0;
+  color: #1f415c;
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+
+.character-img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px 0 0 20px;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.character-name {
+  margin-bottom: 5px;
+}
+
+.character-details {
+  margin: 5px;
+}
+
+.status {
+  margin-right: 5px;
+}

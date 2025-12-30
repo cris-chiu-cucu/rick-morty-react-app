@@ -1,4 +1,4 @@
-export type Episode = {
+export interface Episode {
   id: number,
   name: string,
   air_date: string,
@@ -8,7 +8,7 @@ export type Episode = {
   created: string,
 }
 
-export type EpisodeResponse = {
+export interface EpisodeResponse {
   info: {
     count: number,
     pages: number,
@@ -16,4 +16,25 @@ export type EpisodeResponse = {
     prev: string,
   },
   results: Episode[],
+}
+
+export interface Character {
+  id: number,
+  name: string,
+  status: 'Alive'|'Dead'|'unknown',
+  species: string,
+  type: string,
+  gender: 'Female'|'Male'|'Genderless'|'unknown',
+  origin: {
+    name: string,
+    url: string,
+  },
+  location: {
+    name: string,
+    url: string,
+  },
+  image: string,
+  episode: string[],
+  url: string,
+  created: string,
 }
