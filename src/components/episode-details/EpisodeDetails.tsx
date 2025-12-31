@@ -10,6 +10,7 @@ export default function EpisodeDetails({ episode }: { episode: Episode }) {
 
   episode.characters.forEach((characterUrl) => {
     const characterId = characterUrl.split("/").at(-1);
+
     if (characterId) {
       characterIdList.push(characterId);
     }

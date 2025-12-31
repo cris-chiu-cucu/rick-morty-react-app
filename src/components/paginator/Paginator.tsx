@@ -9,21 +9,21 @@ export default function Paginator({
   onChangeCurrentPage: (pageNumber: number) => void;
   pages: number;
 }) {
-  function handlePreviousPageClick() {
-    onChangeCurrentPage(currentPage - 1);
-  }
-
-  function handlePageButtonClick(pageNumber: number) {
-    onChangeCurrentPage(pageNumber);
-  }
-
-  function handleNextPageClick() {
-    onChangeCurrentPage(currentPage + 1);
-  }
-
-  // 3 is the maximal number of pages to be displayed in paginator
+  // 3 is the maximal number of buttons to be displayed in paginator
   const maxNumericPageButtons = pages < 3 ? pages : 3;
   const displayedPageNumbers: number[] = [];
+
+  const handlePreviousPageClick = () => {
+    onChangeCurrentPage(currentPage - 1);
+  };
+
+  const handlePageButtonClick = (pageNumber: number) => {
+    onChangeCurrentPage(pageNumber);
+  };
+
+  const handleNextPageClick = () => {
+    onChangeCurrentPage(currentPage + 1);
+  };
 
   if (currentPage < maxNumericPageButtons) {
     for (let i = 1; i <= maxNumericPageButtons; i++) {

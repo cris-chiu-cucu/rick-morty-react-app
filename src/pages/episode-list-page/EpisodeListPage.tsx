@@ -11,13 +11,10 @@ export default function EpisodeListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [episodeName, setEpisodeName] = useState("");
   const [filter, setFilter] = useState("");
-
   const { data, error, isFetching } = useSuspenseQuery({
     queryKey: ["episodes", currentPage, filter],
     queryFn: () => fetchEpisodes(currentPage, filter),
   });
-
-  // TODO: check why the component is called 4 times: the first 2 times the component is called because of StrictMode in react
   const pages = data?.info?.pages;
 
   if (error && !isFetching) {
