@@ -1,0 +1,29 @@
+.error-panel {
+  padding: 20px 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.error-panel,
+.error-panel-button {
+  background-color: rgba(255, 0, 0, .2);
+  color: #9d4343;
+}
+
+.error-panel-button {
+  cursor: pointer;
+  border: 2px solid #8d3f3f;
+  margin: 10px auto 5px;
+  display: block;
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+
+.error-panel-button:hover {
+  box-shadow: 0 0 5px #9d4343;
+}
+
+.error-panel-button:focus {
+  border-color: #552b2b;
+}

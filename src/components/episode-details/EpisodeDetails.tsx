@@ -2,10 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { Episode } from "../../types";
 import { fetchMultipleCharacters } from "../../api/character.ts";
-import ErrorPanel from "../error-panel/ErrorPanel.tsx";
-import Loader from "../loader/Loader.tsx";
 
-import "./EpisodeDetails.css";
+import styles from "./EpisodeDetails.module.css";
 
 export default function EpisodeDetails({ episode }: { episode: Episode }) {
   const characterIdList: string[] = [];
@@ -17,16 +15,18 @@ export default function EpisodeDetails({ episode }: { episode: Episode }) {
     }
   });
 
-  const { data, error, isPending, isError } = useQuery({
+  const { data, error, isFetching } = useQuery({
     queryKey: ["character", characterIdList],
     queryFn: () => fetchMultipleCharacters(characterIdList),
   });
 
+  if (error && !isFetching) {
+    throw error;
+  }
+
   return (
-    <div className="episode-details-content">
-      {isError && error && <ErrorPanel errorMessage={error.message} />}
-      {isPending && <Loader />}
-      <p className="episode-description">
+    <div className={styles["episode-details-content"]}>
+      <p className={styles["episode-description"]}>
         The episode {episode.episode} named as "{episode.name}" was created on{" "}
         {new Date(episode.created).toLocaleString()}. It was released on{" "}
         {episode.air_date}. In this episode there{" "}
@@ -34,22 +34,22 @@ export default function EpisodeDetails({ episode }: { episode: Episode }) {
         {episode.characters.length > 1 && "s"}:
       </p>
       {data && (
-        <ul className="character-list">
+        <ul className={styles["character-list"]}>
           {data.map((character) => (
-            <li className="character-list-item">
-              <div className="character-card">
+            <li key={character.id} className={styles["character-list-item"]}>
+              <div className={styles["character-card"]}>
                 <img
-                  className="character-img"
+                  className={styles["character-img"]}
                   src={character.image}
                   alt={`image with ${character.name}`}
                   width="150"
                   height="auto"
                 />
                 <div>
-                  <h3 className="character-name">{character.name}</h3>
-                  <p className="character-details">
+                  <h3 className={styles["character-name"]}>{character.name}</h3>
+                  <p className={styles["character-details"]}>
                     <svg
-                      className="status"
+                      className={styles.status}
                       width="10"
                       height="10"
                       viewBox="0 0 10 10"
@@ -66,10 +66,10 @@ export default function EpisodeDetails({ episode }: { episode: Episode }) {
                       {character.status} ({character.species})
                     </i>
                   </p>
-                  <p className="character-details">
+                  <p className={styles["character-details"]}>
                     Origin: <b>{character.origin.name}</b>
                   </p>
-                  <p className="character-details">
+                  <p className={styles["character-details"]}>
                     Last seen in: <b>{character.location.name}</b>
                   </p>
                 </div>

@@ -1,9 +1,10 @@
-import "./Loader.css";
 import spinnerImage from "../../assets/spinner.svg";
+
+import styles from "./Loader.module.css";
 
 export default function Loader() {
   return (
-    <div id="loading-overlay">
+    <div className={styles["loading-overlay"]}>
       <img src={spinnerImage} alt="loading spinner" width="100" height="100" />
     </div>
   );

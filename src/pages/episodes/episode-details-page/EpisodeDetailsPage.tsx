@@ -1,25 +1,27 @@
 import { useParams, Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
-import Loader from "../../../components/loader/Loader.tsx";
-import ErrorPanel from "../../../components/error-panel/ErrorPanel.tsx";
 import EpisodeDetails from "../../../components/episode-details/EpisodeDetails.tsx";
-import { fetchEpisodeDetails } from "../../../api/episode";
+import { fetchEpisodeDetails } from "../../../api/episode.ts";
 
-import "./EpisodeDetailsPage.css";
+import styles from "./EpisodeDetailsPage.module.css";
 
 export default function EpisodeDetailsPage() {
   const { episodeId } = useParams();
-  const { data, error, isError, isPending } = useQuery({
+  const { data, error, isFetching } = useQuery({
     queryKey: ["episode", episodeId],
     queryFn: () => fetchEpisodeDetails(episodeId!),
     enabled: !!episodeId,
   });
 
+  if (error && !isFetching) {
+    throw error;
+  }
+
   return (
     <>
-      <div className="bread-crumps">
-        <Link to="/" className="previous-link">
+      <div className={styles["bread-crumps"]}>
+        <Link to="/" className={styles["previous-link"]}>
           Episode List
         </Link>
         {data && (
@@ -28,8 +30,6 @@ export default function EpisodeDetailsPage() {
           </span>
         )}
       </div>
-      {isPending && <Loader />}
-      {isError && error && <ErrorPanel errorMessage={error.message} />}
       {data && <EpisodeDetails episode={data} />}
     </>
   );

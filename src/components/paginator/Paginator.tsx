@@ -1,4 +1,4 @@
-import "./Paginator.css";
+import styles from "./Paginator.module.css";
 
 export default function Paginator({
   currentPage,
@@ -41,22 +41,25 @@ export default function Paginator({
   }
 
   return (
-    <div className="paginator">
+    <div className={styles.paginator}>
       {currentPage > 1 && (
-        <button className="page-button" onClick={handlePreviousPageClick}>
+        <button
+          className={styles["page-button"]}
+          onClick={handlePreviousPageClick}
+        >
           &lt;
         </button>
       )}
       {displayedPageNumbers[0] > 1 && (
-        <span className="spread-separator">...</span>
+        <span className={styles["spread-separator"]}>...</span>
       )}
       {displayedPageNumbers.map((pageNumber) => (
         <button
           key={pageNumber}
           className={
             pageNumber === currentPage
-              ? "page-button page-button--active"
-              : "page-button"
+              ? `${styles["page-button"]} ${styles["page-button--active"]}`
+              : styles["page-button"]
           }
           onClick={() => handlePageButtonClick(pageNumber)}
         >
@@ -65,12 +68,12 @@ export default function Paginator({
       ))}
       {displayedPageNumbers[2] < pages && (
         <>
-          <span className="spead-separator">...</span>
-          <button className="page-button">{pages}</button>
+          <span className={styles["spead-separator"]}>...</span>
+          <button className={styles["page-button"]}>{pages}</button>
         </>
       )}
       {currentPage < pages && (
-        <button className="page-button" onClick={handleNextPageClick}>
+        <button className={styles["page-button"]} onClick={handleNextPageClick}>
           &gt;
         </button>
       )}

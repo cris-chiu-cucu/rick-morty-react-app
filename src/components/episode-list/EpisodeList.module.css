@@ -9,10 +9,11 @@
 .episode-item {
   width: 100%;
   list-style-type: none;
-  padding: 20px;
+  padding: 20px 0;
 
   @media screen and (min-width: 768px) {
     width: 50%;
+    padding: 20px;
   }
 
   @media screen and (min-width: 1200px) {
@@ -52,4 +53,3 @@
   font-size: 30px;
   color: #4e8074;
 }
-

@@ -1,47 +1,60 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 import Paginator from "../../components/paginator/Paginator.tsx";
 import EpisodeList from "../../components/episode-list/EpisodeList.tsx";
-import Loader from "../../components/loader/Loader.tsx";
-import ErrorPanel from "../../components/error-panel/ErrorPanel.tsx";
 import { fetchEpisodes } from "../../api/episode.ts";
 
-import "./EpisodeListPage.css";
+import styles from "./EpisodeListPage.module.css";
 
 export default function EpisodeListPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [episodeNameFilter, setEpisodeNameFilter] = useState("");
-  const { data, error, isPending, isError } = useQuery({
-    queryKey: ["episodes", currentPage, episodeNameFilter],
-    queryFn: () => fetchEpisodes(currentPage, `name=${episodeNameFilter}`),
+  const [episodeName, setEpisodeName] = useState("");
+  const [filter, setFilter] = useState("");
+
+  const { data, error, isFetching } = useSuspenseQuery({
+    queryKey: ["episodes", currentPage, filter],
+    queryFn: () => fetchEpisodes(currentPage, filter),
   });
 
   // TODO: check why the component is called 4 times: the first 2 times the component is called because of StrictMode in react
   const pages = data?.info?.pages;
 
+  if (error && !isFetching) {
+    throw error;
+  }
+
   return (
-    // TODO: maybe lift up the Loading and ErrorPanel components to provide the entire application with single components
-    <div id="episodes-page-content">
-      {isPending && <Loader />}
-      {isError && <ErrorPanel errorMessage={error.message} />}
-      <form className="filter-container">
+    <div className={styles["episodes-page-content"]}>
+      <form className={styles["filter-container"]}>
         <label htmlFor="episode-name">Filter by episode name:</label>
         <input
           id="episode-name"
-          value={episodeNameFilter}
+          className={styles["episode-name"]}
+          value={episodeName}
           onChange={(e) => {
-            setEpisodeNameFilter(e.target.value);
+            setEpisodeName(e.target.value);
           }}
         />
-        <input
-          type="reset"
-          className="reset-button"
-          value="&#10799;"
-          onClick={() => {
-            setEpisodeNameFilter("");
-          }}
-        />
+        <div>
+          <input
+            type="button"
+            className={styles["action-button"]}
+            value="&#10004;"
+            onClick={() => {
+              setFilter(`name=${episodeName}`);
+            }}
+          />
+          <input
+            type="reset"
+            className={styles["action-button"]}
+            value="&#10799;"
+            onClick={() => {
+              setEpisodeName("");
+              setFilter("");
+            }}
+          />
+        </div>
       </form>
       {data && (
         <>
