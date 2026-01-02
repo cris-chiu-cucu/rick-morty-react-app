@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/cris-chiu-cucu/rick-morty-react-app",
+  "homepage": "https://cris-chiu-cucu.github.io/rick-morty-react-app",
   "scripts": {
     "deploy": "gh-pages -d dist",
     "dev": "vite",
