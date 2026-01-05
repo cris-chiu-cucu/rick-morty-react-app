@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import type { Episode } from "../../types";
 import { fetchMultipleCharacters } from "../../api/character.ts";
@@ -16,7 +16,7 @@ export default function EpisodeDetails({ episode }: { episode: Episode }) {
     }
   });
 
-  const { data, error, isFetching } = useQuery({
+  const { data, error, isFetching } = useSuspenseQuery({
     queryKey: ["character", characterIdList],
     queryFn: () => fetchMultipleCharacters(characterIdList),
   });

@@ -6,9 +6,14 @@
 }
 
 .page-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   cursor: pointer;
   border: none;
   border-radius: 6px;
+  background-color: buttonface;
   margin: 0 4px;
   width: 48px;
   height: 48px;

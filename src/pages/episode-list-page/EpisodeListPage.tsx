@@ -1,19 +1,26 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import {
+  useSuspenseQuery,
+  QueryErrorResetBoundary,
+} from "@tanstack/react-query";
+import { useParams, useSearchParams } from "react-router";
+import { ErrorBoundary } from "react-error-boundary";
 import { useState } from "react";
 
 import Paginator from "../../components/paginator/Paginator.tsx";
 import EpisodeList from "../../components/episode-list/EpisodeList.tsx";
+import ErrorPanel from "../../components/error-panel/ErrorPanel.tsx";
 import { fetchEpisodes } from "../../api/episode.ts";
 
 import styles from "./EpisodeListPage.module.css";
 
 export default function EpisodeListPage() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const { pageNumber } = useParams();
+  const currentPage = pageNumber ? Number(pageNumber) : 1;
   const [episodeName, setEpisodeName] = useState("");
-  const [filter, setFilter] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
   const { data, error, isFetching } = useSuspenseQuery({
-    queryKey: ["episodes", currentPage, filter],
-    queryFn: () => fetchEpisodes(currentPage, filter),
+    queryKey: ["episodes", currentPage, searchParams.toString()],
+    queryFn: () => fetchEpisodes(currentPage, searchParams.toString()),
   });
   const pages = data?.info?.pages;
 
@@ -39,7 +46,7 @@ export default function EpisodeListPage() {
             className={styles["action-button"]}
             value="&#10004;"
             onClick={() => {
-              setFilter(`name=${episodeName}`);
+              setSearchParams(`name=${episodeName}`);
             }}
           />
           <input
@@ -48,7 +55,7 @@ export default function EpisodeListPage() {
             value="&#10799;"
             onClick={() => {
               setEpisodeName("");
-              setFilter("");
+              setSearchParams("");
             }}
           />
         </div>
@@ -57,11 +64,7 @@ export default function EpisodeListPage() {
         <>
           <EpisodeList episodes={data.results} />
           {pages && pages > 1 && (
-            <Paginator
-              currentPage={currentPage}
-              onChangeCurrentPage={setCurrentPage}
-              pages={pages}
-            />
+            <Paginator currentPage={currentPage} pages={pages} />
           )}
         </>
       )}
