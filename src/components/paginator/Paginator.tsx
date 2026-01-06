@@ -2,16 +2,19 @@ import { Link } from "react-router";
 
 import styles from "./Paginator.module.css";
 
-export default function Paginator({
+export function Paginator({
   currentPage,
   pages,
+  urlQueryString,
 }: {
   currentPage: number;
   pages: number;
+  urlQueryString: string;
 }) {
   // 3 is the maximal number of buttons to be displayed in paginator
   const maxNumericPageButtons = pages < 3 ? pages : 3;
   const displayedPageNumbers: number[] = [];
+  const urlPathPrefix = "/page/";
 
   if (currentPage < maxNumericPageButtons) {
     for (let i = 1; i <= maxNumericPageButtons; i++) {
@@ -31,7 +34,13 @@ export default function Paginator({
   return (
     <div className={styles.paginator}>
       {currentPage > 1 && (
-        <Link className={styles["page-button"]} to={`/page/${currentPage - 1}`}>
+        <Link
+          className={styles["page-button"]}
+          to={{
+            pathname: `${urlPathPrefix}${currentPage - 1}`,
+            search: urlQueryString,
+          }}
+        >
           &lt;
         </Link>
       )}
@@ -46,7 +55,10 @@ export default function Paginator({
               ? `${styles["page-button"]} ${styles["page-button--active"]}`
               : styles["page-button"]
           }
-          to={`/page/${pageNumber}`}
+          to={{
+            pathname: `${urlPathPrefix}${pageNumber}`,
+            search: urlQueryString,
+          }}
         >
           {pageNumber}
         </Link>
@@ -54,13 +66,25 @@ export default function Paginator({
       {displayedPageNumbers[2] < pages && (
         <>
           <span className={styles["spead-separator"]}>...</span>
-          <Link className={styles["page-button"]} to={`/page/${pages}`}>
+          <Link
+            className={styles["page-button"]}
+            to={{
+              pathname: `${urlPathPrefix}${pages}`,
+              search: urlQueryString,
+            }}
+          >
             {pages}
           </Link>
         </>
       )}
       {currentPage < pages && (
-        <Link className={styles["page-button"]} to={`/page/${currentPage + 1}`}>
+        <Link
+          className={styles["page-button"]}
+          to={{
+            pathname: `${urlPathPrefix}${currentPage + 1}`,
+            search: urlQueryString,
+          }}
+        >
           &gt;
         </Link>
       )}

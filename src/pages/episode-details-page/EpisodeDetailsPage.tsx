@@ -1,21 +1,16 @@
+import { Suspense } from "react";
 import { useParams, Link } from "react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
+import { ErrorBoundary } from "react-error-boundary";
 
-import EpisodeDetails from "../../components/episode-details/EpisodeDetails.tsx";
-import { fetchEpisodeDetails } from "../../api/episode.ts";
+import { NOT_FOUND_ERROR } from "../../errors.ts";
+import { EpisodeDetails } from "../../components/EpisodeDetails.tsx";
+import { ErrorPanel } from "../../components/error-panel/ErrorPanel.tsx";
 
 import styles from "./EpisodeDetailsPage.module.css";
 
-export default function EpisodeDetailsPage() {
+export function EpisodeDetailsPage() {
   const { episodeId } = useParams();
-  const { data, error, isFetching } = useSuspenseQuery({
-    queryKey: ["episode", episodeId],
-    queryFn: () => fetchEpisodeDetails(episodeId!),
-  });
-
-  if (error && !isFetching) {
-    throw error;
-  }
 
   return (
     <>
@@ -23,13 +18,41 @@ export default function EpisodeDetailsPage() {
         <Link relative="path" to="../.." className={styles["previous-link"]}>
           Episode List
         </Link>
-        {data && (
-          <span>
-            &nbsp;&gt; Details for Episode: <strong>"{data.name}"</strong>
-          </span>
-        )}
+        <span>&nbsp;&gt;</span>
       </div>
-      {data && <EpisodeDetails episode={data} />}
+      {episodeId && (
+        <QueryErrorResetBoundary>
+          {({ reset }) => (
+            <ErrorBoundary
+              onReset={reset}
+              fallbackRender={({ error, resetErrorBoundary }) => {
+                if (error.name === NOT_FOUND_ERROR) {
+                  return (
+                    <ErrorPanel
+                      leftAlign
+                      error={{
+                        ...error,
+                        message: `${error.message}. Please navigate to Episode List page.`,
+                      }}
+                    />
+                  );
+                } else {
+                  return (
+                    <ErrorPanel
+                      error={error}
+                      resetErrorBoundary={resetErrorBoundary}
+                    />
+                  );
+                }
+              }}
+            >
+              <Suspense>
+                <EpisodeDetails episodeId={episodeId} />
+              </Suspense>
+            </ErrorBoundary>
+          )}
+        </QueryErrorResetBoundary>
+      )}
     </>
   );
 }

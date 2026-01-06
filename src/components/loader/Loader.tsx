@@ -2,7 +2,7 @@ import spinnerImage from "../../assets/spinner.svg";
 
 import styles from "./Loader.module.css";
 
-export default function Loader() {
+export function Loader() {
   return (
     <div className={styles["loading-overlay"]}>
       <img src={spinnerImage} alt="loading spinner" width="100" height="100" />

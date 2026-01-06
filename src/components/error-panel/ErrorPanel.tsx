@@ -1,20 +1,31 @@
-import type { FallbackProps } from "react-error-boundary";
-
 import styles from "./ErrorPanel.module.css";
 
-export default function ErrorPanel({
+export function ErrorPanel({
   error,
   resetErrorBoundary,
-}: FallbackProps) {
+  leftAlign,
+}: {
+  error: Error;
+  resetErrorBoundary?: (...args: [unknown]) => void;
+  leftAlign?: boolean;
+}) {
   return (
-    <div className={styles["error-panel"]}>
+    <div
+      className={
+        leftAlign
+          ? `${styles["error-panel"]} ${styles["left-align"]}`
+          : `${styles["error-panel"]}`
+      }
+    >
       {error.message}
-      <button
-        className={styles["error-panel-button"]}
-        onClick={resetErrorBoundary}
-      >
-        Try again
-      </button>
+      {resetErrorBoundary && (
+        <button
+          className={styles["error-panel-button"]}
+          onClick={resetErrorBoundary}
+        >
+          Try again
+        </button>
+      )}
     </div>
   );
 }

@@ -1,13 +1,10 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
-
 import type { Episode } from "../../types";
-import { fetchMultipleCharacters } from "../../api/character.ts";
+import { useFetchCharacterList } from "../../query-hooks";
 
-import styles from "./EpisodeDetails.module.css";
+import styles from "./EpisodeCharacterList.module.css";
 
-export default function EpisodeDetails({ episode }: { episode: Episode }) {
+export function EpisodeCharacterList({ episode }: { episode: Episode }) {
   const characterIdList: string[] = [];
-
   episode.characters.forEach((characterUrl) => {
     const characterId = characterUrl.split("/").at(-1);
 
@@ -15,11 +12,7 @@ export default function EpisodeDetails({ episode }: { episode: Episode }) {
       characterIdList.push(characterId);
     }
   });
-
-  const { data, error, isFetching } = useSuspenseQuery({
-    queryKey: ["character", characterIdList],
-    queryFn: () => fetchMultipleCharacters(characterIdList),
-  });
+  const { data, error, isFetching } = useFetchCharacterList(characterIdList);
 
   if (error && !isFetching) {
     throw error;
