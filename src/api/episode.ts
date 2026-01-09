@@ -1,25 +1,21 @@
 import type { EpisodeResponse, Episode } from "../types.ts";
 import { NotFoundError } from "../errors.ts";
 
-const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
+const EPISODE_BASE_API_URL = `${import.meta.env.VITE_BASE_API_URL}/episode/`;
 
 export const fetchEpisodes = async (pageNumber?: number, filter?: string): Promise<EpisodeResponse> => {
-  const queryStringList: string[] = [];
-  let API_URL = `${BASE_API_URL}/episode`;
-
+  const searchParams = new URLSearchParams();
   if(pageNumber) {
-    queryStringList.push(`page=${pageNumber}`);
+    searchParams.append('page', pageNumber.toString());
   }
 
   if(filter) {
-    queryStringList.push(filter);
+    new URLSearchParams(filter).forEach((value, key) => { searchParams.append(key, value);});
   }
   
-  if(queryStringList.length) {
-    API_URL += `?${queryStringList.join('&')}`;
-  }
-
-  const response = await fetch(API_URL);
+  const url = new URL(EPISODE_BASE_API_URL);
+  url.search = searchParams.toString();
+  const response = await fetch(url);
   if (response.ok) {
     return response.json();
   } else if(response.status === 404){
@@ -30,7 +26,8 @@ export const fetchEpisodes = async (pageNumber?: number, filter?: string): Promi
 };
 
 export const fetchEpisodeDetails = async (episodeId: string): Promise<Episode> => {
-  const response = await fetch(`${BASE_API_URL}/episode/${episodeId}`);
+  const url = new URL(episodeId, EPISODE_BASE_API_URL);
+  const response = await fetch(url);
   if(response.ok) {
     return response.json();
   } else if(response.status === 404){
