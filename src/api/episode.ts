@@ -19,7 +19,7 @@ export const fetchEpisodes = async (pageNumber?: number, filter?: string): Promi
   if (response.ok) {
     return response.json();
   } else if(response.status === 404){
-    throw new NotFoundError(`There are no episodes for the page: ${pageNumber} matching the filter: ${filter}.`)
+    throw new NotFoundError(`There are no episodes for the page: ${pageNumber} matching the filter: ${filter}`)
   } else {
     throw new Error("Sorry, the episodes couldn't be fetched.");
   }
