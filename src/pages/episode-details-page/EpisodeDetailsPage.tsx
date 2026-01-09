@@ -4,7 +4,7 @@ import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { NOT_FOUND_ERROR } from "../../errors.ts";
-import { EpisodeDetails } from "../../components/EpisodeDetails.tsx";
+import { EpisodeDetails } from "../../components/episode-details/EpisodeDetails.tsx";
 import { ErrorPanel } from "../../components/error-panel/ErrorPanel.tsx";
 
 import styles from "./EpisodeDetailsPage.module.css";

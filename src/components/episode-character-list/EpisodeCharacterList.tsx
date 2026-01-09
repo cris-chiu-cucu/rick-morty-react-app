@@ -12,24 +12,21 @@ export function EpisodeCharacterList({ episode }: { episode: Episode }) {
       characterIdList.push(characterId);
     }
   });
-  const { data, error, isFetching } = useFetchCharacterList(characterIdList);
+  const {
+    data: characters,
+    error,
+    isFetching,
+  } = useFetchCharacterList(characterIdList);
 
   if (error && !isFetching) {
     throw error;
   }
 
   return (
-    <div className={styles["episode-details-content"]}>
-      <p className={styles["episode-description"]}>
-        The episode {episode.episode} named as "{episode.name}" was created on{" "}
-        {new Date(episode.created).toLocaleString()}. It was released on{" "}
-        {episode.air_date}. In this episode there{" "}
-        {episode.characters.length > 1 ? "are" : "is"} the following character
-        {episode.characters.length > 1 && "s"}:
-      </p>
-      {data && (
+    <>
+      {characters && (
         <ul className={styles["character-list"]}>
-          {data.map((character) => (
+          {characters.map((character) => (
             <li key={character.id} className={styles["character-list-item"]}>
               <div className={styles["character-card"]}>
                 <img
@@ -72,6 +69,6 @@ export function EpisodeCharacterList({ episode }: { episode: Episode }) {
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 }
