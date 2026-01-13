@@ -1,17 +1,29 @@
 #header {
   height: 4rem;
-  background-image: url('./assets/rick-morty-header-title.png'), linear-gradient(to bottom, #0c1e31, #1f415c);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  background-image: linear-gradient(to bottom, #0c1e31, #1f415c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media screen and (min-width: 600px) {
     height: 100px;
-    background-size: auto;
   }
 
   @media screen and (min-width: 768px) {
     height: 150px;
+  }
+}
+
+#header-image {
+  object-position: center;
+  object-fit: contain;
+
+  @media screen and (min-width: 600px) {
+    width: 500px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 600px;
   }
 }
 

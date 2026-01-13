@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter, Routes, Route } from "react-router";
 
-import { App } from "./App.tsx";
+import { App } from "./App/App.tsx";
 import { EpisodeListPage } from "./pages/episode-list-page/EpisodeListPage.tsx";
 import { EpisodeDetailsPage } from "./pages/episode-details-page/EpisodeDetailsPage.tsx";
 
