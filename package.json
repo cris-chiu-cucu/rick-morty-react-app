@@ -9,7 +9,6 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite build --base=/ && vite preview",
-    "test": "vitest --standalone",
     "coverage": "vitest run --coverage",
     "test:browser": "vitest --config=vitest.browser.config.ts"
   },
@@ -33,10 +32,16 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "msw": "^2.12.7",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
     "vitest": "^4.0.17",
     "vitest-browser-react": "^2.0.2"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
