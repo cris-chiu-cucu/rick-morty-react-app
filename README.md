@@ -33,6 +33,7 @@ It is made for learning purposes and uses the API: https://rickandmortyapi.com/.
 - [Vite](https://vitejs.dev/) — next-gen frontend bundler tooling
 - [CSS Modules](https://vite.dev/guide/features#css-modules) - styling the application
 - [Vitest](https://vitest.dev/) — testing framework
+- [MockServiceWorker](https://mswjs.io/docs/integrations/browser) - mocking api calls
 
 ## 🚀Getting Started
 

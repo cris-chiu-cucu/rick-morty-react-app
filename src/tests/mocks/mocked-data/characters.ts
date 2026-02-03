@@ -1,4 +1,4 @@
-import type { Character } from "../../types.ts";
+import type { Character } from "../../../types.ts";
 
 export const mockCharacterList: Character[] = [
   {

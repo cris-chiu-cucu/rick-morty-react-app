@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 
-import { mockCharacterList } from "./mocked-data/chracters";
+import { mockCharacterList } from "./mocked-data/characters";
 
 const API_BASE_URL = import.meta.env.VITE_BASE_API_URL;
 

@@ -22,53 +22,53 @@ export function EpisodeCharacterList({ episode }: { episode: Episode }) {
     throw error;
   }
 
+  if (!characters) {
+    return <div>There are no characters for the episode.</div>;
+  }
+
   return (
-    <>
-      {characters && (
-        <ul className={styles["character-list"]}>
-          {characters.map((character) => (
-            <li key={character.id} className={styles["character-list-item"]}>
-              <div className={styles["character-card"]}>
-                <img
-                  className={styles["character-img"]}
-                  src={character.image}
-                  alt={`image with ${character.name}`}
-                  width="150"
-                  height="auto"
-                />
-                <div>
-                  <h3 className={styles["character-name"]}>{character.name}</h3>
-                  <p className={styles["character-details"]}>
-                    <svg
-                      className={styles.status}
-                      width="10"
-                      height="10"
-                      viewBox="0 0 10 10"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="5"
-                        cy="5"
-                        r="5"
-                        fill={character.status === "Alive" ? "green" : "red"}
-                      />
-                    </svg>
-                    <i>
-                      {character.status} ({character.species})
-                    </i>
-                  </p>
-                  <p className={styles["character-details"]}>
-                    Origin: <b>{character.origin.name}</b>
-                  </p>
-                  <p className={styles["character-details"]}>
-                    Last seen in: <b>{character.location.name}</b>
-                  </p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
+    <ul className={styles["character-list"]}>
+      {characters.map((character) => (
+        <li key={character.id} className={styles["character-list-item"]}>
+          <div className={styles["character-card"]}>
+            <img
+              className={styles["character-img"]}
+              src={character.image}
+              alt={`image with ${character.name}`}
+              width="150"
+              height="auto"
+            />
+            <div>
+              <h3 className={styles["character-name"]}>{character.name}</h3>
+              <p className={styles["character-details"]}>
+                <svg
+                  className={styles.status}
+                  width="10"
+                  height="10"
+                  viewBox="0 0 10 10"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="5"
+                    fill={character.status === "Alive" ? "green" : "red"}
+                  />
+                </svg>
+                <i>
+                  {character.status} ({character.species})
+                </i>
+              </p>
+              <p className={styles["character-details"]}>
+                Origin: <b>{character.origin.name}</b>
+              </p>
+              <p className={styles["character-details"]}>
+                Last seen in: <b>{character.location.name}</b>
+              </p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }

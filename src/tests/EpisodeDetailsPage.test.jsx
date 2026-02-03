@@ -5,8 +5,8 @@ import React, { Suspense } from "react";
 
 import { EpisodeCharacterList } from "./EpisodeCharacterList.tsx";
 import { Loader } from "../loader/Loader.tsx";
-import { mockEpisodeWith1Character } from "../../mocks/mocked-data/episodes.ts";
-import { mockCharacterList } from "../../mocks/mocked-data/chracters.ts";
+import { mockEpisodeList } from "../../mocks/mocked-data/episodes.ts";
+import { mockCharacterList } from "../../mocks/mocked-data/characters.ts";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => {
   // todo: set retry: false for tests
@@ -30,8 +30,8 @@ const wrapper = ({ children }: { children: React.ReactNode }) => {
 describe("renders episode related character list cards", () => {
   test("renders 1 character card for the episode with 1 character", async () => {
     const screen = await render(
-      <EpisodeCharacterList episode={mockEpisodeWith1Character} />,
-      { wrapper }
+      <EpisodeCharacterList episode={mockEpisodeList[0]} />,
+      { wrapper },
     );
     const characterListElement = screen.getByRole("list");
     const characterListItems = screen.getByRole("listitem");
@@ -45,3 +45,4 @@ describe("renders episode related character list cards", () => {
       .toBeInTheDocument();
   });
 });
+import("react").
